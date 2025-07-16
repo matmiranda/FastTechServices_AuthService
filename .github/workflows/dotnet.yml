@@ -23,33 +23,12 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.x
-      
-      - name: Debug secrets usage
-        run: |
-          echo "Using ACR_LOGIN_SERVER: ${{ secrets.ACR_LOGIN_SERVER }}"
-          echo "Using AKS_CLUSTER_NAME: ${{ secrets.AKS_CLUSTER_NAME }}"
-          echo "Using AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}"
 
       - name: Restore dependencies
         run: dotnet restore AuthService.sln
 
       - name: Build
         run: dotnet build AuthService.sln --configuration Release
-
-      # - name: Start RabbitMQ
-      #   run: |
-      #     docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
-      #     sleep 10
-      #     for i in {1..10}; do
-      #       if curl -u guest:guest -f http://localhost:15672/api/healthchecks/node > /dev/null 2>&1; then
-      #         echo "RabbitMQ is ready"
-      #         exit 0
-      #       fi
-      #       echo "Waiting for RabbitMQ to start... Attempt $i of 10"
-      #       sleep 5
-      #     done
-      #     echo "RabbitMQ failed to start"
-      #     exit 1
 
       - name: Set Environment Variables
         run: |
