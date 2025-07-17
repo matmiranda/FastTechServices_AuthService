@@ -5,6 +5,7 @@ using AuthService.Infrastructure.Database;
 using AuthService.Infrastructure.Repositories;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
