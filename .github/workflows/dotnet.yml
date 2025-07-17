@@ -101,11 +101,11 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/producer-criar-contatos:latest -f AuthService.Api/Dockerfile .
+          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/k8s:latest -f AuthService.Api/Dockerfile .
 
       - name: Push Docker image to ACR
         run: |
-          docker push ${{ secrets.ACR_LOGIN_SERVER }}/producer-criar-contatos:latest
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/k8s:latest
 
       - name: Set AKS context
         uses: azure/aks-set-context@v3
@@ -116,32 +116,32 @@ jobs:
       - name: Update Kubernetes Resources
         run: |
           # Aplica ConfigMap (cria ou atualiza se necessário)
-          kubectl apply -f AuthService.Api/k8s/producer-criar-contatos-configmap.yml
+          kubectl apply -f AuthService.Api/k8s/k8s-configmap.yml
 
           # Aplica Deployment (cria ou atualiza se necessário)
-          kubectl apply -f AuthService.Api/k8s/producer-criar-contatos-deployment.yml
+          kubectl apply -f AuthService.Api/k8s/k8s-deployment.yml
 
           # Aplica PVC e PV (apenas cria ou atualiza, sem deletar)
-          kubectl apply -f AuthService.Api/k8s/producer-criar-contatos-persistent-volume.yml
-          kubectl apply -f AuthService.Api/k8s/producer-criar-contatos-persistent-volume-claim.yml
+          kubectl apply -f AuthService.Api/k8s/k8s-persistent-volume.yml
+          kubectl apply -f AuthService.Api/k8s/k8s-persistent-volume-claim.yml
 
           # Aplica Service (cria ou atualiza se necessário)
-          kubectl apply -f AuthService.Api/k8s/producer-criar-contatos-service.yml
+          kubectl apply -f AuthService.Api/k8s/k8s-service.yml
 
           # Aplica o Ingress (cria ou atualiza o roteamento externo)
-          kubectl apply -f AuthService.Api/k8s/producer-criar-contatos-ingress.yml
+          kubectl apply -f AuthService.Api/k8s/k8s-ingress.yml
 
           # Espera o rollout do Deployment para garantir que a atualização foi bem-sucedida
-          kubectl rollout status deployment/producer-criar-contatos-deployment
+          kubectl rollout status deployment/k8s-deployment
       
       - name: Update AKS Deployment with new image
         uses: azure/k8s-deploy@v1
         with:
           manifests: |
-            AuthService.Api/k8s/producer-criar-contatos-deployment.yml
-            AuthService.Api/k8s/producer-criar-contatos-service.yml
+            AuthService.Api/k8s/k8s-deployment.yml
+            AuthService.Api/k8s/k8s-service.yml
           images: |
-            ${{ secrets.ACR_LOGIN_SERVER }}/producer-criar-contatos:latest
+            ${{ secrets.ACR_LOGIN_SERVER }}/k8s:latest
           # imagepullsecrets: |
           #   acr-auth
 

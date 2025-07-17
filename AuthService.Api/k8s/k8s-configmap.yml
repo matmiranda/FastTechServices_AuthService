@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: producer-criar-contatos-configmap
+  name: k8s-configmap
   labels:
-    app: producer-criar-contatos
+    app: k8s
     tier: backend
   annotations:
-    description: "Configurações externas para o microsserviço producer-criar-contatos"
+    description: "Configurações externas para o microsserviço k8s"
 data:
   Logging__LogLevel__Default: "Information"
   Logging__LogLevel__Microsoft__AspNetCore: "Warning"
