@@ -132,7 +132,7 @@ jobs:
           kubectl apply -f AuthService.Api/k8s/k8s-ingress.yml
 
           # Espera o rollout do Deployment para garantir que a atualização foi bem-sucedida
-          kubectl rollout status deployment/k8s-deployment
+          kubectl rollout status deployment/auth-deployment
       
       - name: Update AKS Deployment with new image
         uses: azure/k8s-deploy@v1
