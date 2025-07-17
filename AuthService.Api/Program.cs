@@ -106,6 +106,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Adicionar middleware do Prometheus com endpoint customizado
+app.UseMetricServer("/auth/metrics");
+app.UseHttpMetrics();
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
