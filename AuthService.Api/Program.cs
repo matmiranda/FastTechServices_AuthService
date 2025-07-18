@@ -100,12 +100,16 @@ var app = builder.Build();
 // Mapeia o endpoint de health check
 app.MapHealthChecks("/auth/health");
 
+////Middleware pipeline
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+
 //Middleware pipeline
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 // Adicionar middleware do Prometheus com endpoint customizado
 app.UseMetricServer("/auth/metrics");
