@@ -112,7 +112,7 @@ app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Auth API v1");
-    c.RoutePrefix = "swagger"; // ou "" se quiser expor diretamente em /
+    c.RoutePrefix = string.Empty; 
 });
 
 // Adicionar middleware do Prometheus com endpoint customizado
