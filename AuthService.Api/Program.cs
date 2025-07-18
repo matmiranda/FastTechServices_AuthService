@@ -109,11 +109,7 @@ app.MapHealthChecks("/auth/health");
 
 //Middleware pipeline
 app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Auth API v1");
-    c.RoutePrefix = string.Empty; 
-});
+app.UseSwaggerUI();
 
 // Adicionar middleware do Prometheus com endpoint customizado
 app.UseMetricServer("/auth/metrics");
