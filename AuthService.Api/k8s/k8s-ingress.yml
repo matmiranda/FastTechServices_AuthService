@@ -42,5 +42,12 @@ spec:
             name: auth-service
             port:
               number: 80
+      - path: /swagger/index.html
+        pathType: Prefix
+        backend:
+          service:
+            name: auth-service
+            port:
+              number: 80
 
 
