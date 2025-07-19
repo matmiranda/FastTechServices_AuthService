@@ -3,7 +3,7 @@ using AuthService.Domain.Interfaces;
 using AuthService.Infrastructure.Database;
 using Dapper;
 using MySql.Data.MySqlClient;
-using System.Data;
+
 
 namespace AuthService.Infrastructure.Repositories
 {
@@ -27,10 +27,7 @@ namespace AuthService.Infrastructure.Repositories
         {
             user.Id = Guid.NewGuid(); // Garante que o GUID foi atribuído
 
-            var sql = @"INSERT INTO User 
-        (Id, Name, Email, Cpf, PasswordHash, Role, Position, CreatedAt)
-        VALUES 
-        (@Id, @Name, @Email, @Cpf, @PasswordHash, @Role, @Position, @CreatedAt)";
+            var sql = @"INSERT INTO User (Id, Name, Email, Cpf, PasswordHash, Role, Position, CreatedAt) VALUES (@Id, @Name, @Email, @Cpf, @PasswordHash, @Role, @Position, @CreatedAt)";
 
             using var connection = _context.CreateConnection();
 
