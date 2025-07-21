@@ -12,5 +12,4 @@ namespace AuthService.Domain.Entities
         public string Position { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
     }
-
 }

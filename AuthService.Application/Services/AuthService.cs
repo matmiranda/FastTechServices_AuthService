@@ -14,14 +14,14 @@ namespace AuthService.Application.Services
             _jwtService = jwtService;
         }
 
-        public async Task<string> LoginAsync(string email, string password)
+        public async Task<string> LoginAsync(string email, string password, string role)
         {
             var user = await _userRepository.GetByEmailAsync(email);
 
             if (user == null || !Verify(password, user.PasswordHash))
                 throw new UnauthorizedAccessException("Email ou senha inválidos.");
 
-            return _jwtService.GenerateToken(user.Id, email);
+            return _jwtService.GenerateToken(user.Id, email, role);
         }
     }
 }

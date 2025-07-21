@@ -26,6 +26,7 @@ namespace AuthService.Application.DTOs
         public string Password { get; set; } = null!;
 
         [Required(ErrorMessage = "O campo Perfil é obrigatório.")]
+        [RegularExpression(@"^(CLIENTE|ATENDENTE|GERENTE|COZINHEIRO)$", ErrorMessage = "Perfil inválido.")]
         public string Role { get; set; } = null!;
 
         [Required(ErrorMessage = "O campo Cargo é obrigatório.")]

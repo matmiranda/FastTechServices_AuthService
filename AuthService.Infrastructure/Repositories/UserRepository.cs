@@ -46,6 +46,20 @@ namespace AuthService.Infrastructure.Repositories
             }
         }
 
+        public async Task<bool> DeleteUserAsync(Guid id)
+        {
+            using var connection = _context.CreateConnection();
+            var sql = "DELETE FROM User WHERE Id = @Id";
+            var rowsAffected = await connection.ExecuteAsync(sql, new { Id = id });
 
+            return rowsAffected > 0;
+        }
+
+        public async Task<User?> GetByIdAsync(Guid id)
+        {
+            using var connection = _context.CreateConnection();
+            var sql = "SELECT * FROM User WHERE Id = @Id";
+            return await connection.QueryFirstOrDefaultAsync<User>(sql, new { Id = id });
+        }
     }
 }

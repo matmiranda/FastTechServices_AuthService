@@ -3,6 +3,6 @@
     public interface IAuthService
     {
         // Exemplo de assinatura de método
-        Task<string> LoginAsync(string email, string password);
+        Task<string> LoginAsync(string email, string password, string role);
     }
 }

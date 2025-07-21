@@ -70,7 +70,7 @@ public class AuthController : ControllerBase
         if (user == null || !Verify(login.Password, user.PasswordHash))
             return Unauthorized("Credenciais inválidas.");
 
-        var token = _jwtService.GenerateToken(user.Id, user.Email);
+        var token = _jwtService.GenerateToken(user.Id, user.Email, user.Role);
 
         return Ok(new
         {
@@ -85,6 +85,36 @@ public class AuthController : ControllerBase
             }
         });
     }
+
+    [HttpDelete("{id}")]
+    [Authorize(Roles = "GERENTE")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _userRepository.DeleteUserAsync(id);
+        return Ok("Usuário deletado.");
+    }
+
+    [HttpGet("{id}")]
+    [Authorize(Roles = "GERENTE")]
+    public async Task<IActionResult> GetById(Guid id)
+    {
+        var user = await _userRepository.GetByIdAsync(id);
+
+        if (user == null)
+            return NotFound(new { error = "Usuário não encontrado." });
+
+        var response = new UserResponse
+        {
+            Id = user.Id,
+            Name = user.Name,
+            Email = user.Email,
+            Role = user.Role,
+            CreatedAt = user.CreatedAt
+        };
+
+        return Ok(response);
+    }
+
 
 
     [HttpGet("validate")]
