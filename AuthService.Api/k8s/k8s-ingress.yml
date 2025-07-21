@@ -21,6 +21,13 @@ spec:
             name: auth-service
             port:
               number: 80
+      - path: /api/auth/{id}
+        pathType: Prefix
+        backend:
+          service:
+            name: auth-service
+            port:
+              number: 80
       - path: /api/auth/validate
         pathType: Prefix
         backend:
