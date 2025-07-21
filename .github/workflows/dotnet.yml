@@ -95,11 +95,11 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/k8s:latest -f AuthService.Api/Dockerfile .
+          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/auth:latest -f AuthService.Api/Dockerfile .
 
       - name: Push Docker image to ACR
         run: |
-          docker push ${{ secrets.ACR_LOGIN_SERVER }}/k8s:latest
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/auth:latest
 
       - name: Set AKS context
         uses: azure/aks-set-context@v3
@@ -135,7 +135,7 @@ jobs:
             AuthService.Api/k8s/k8s-deployment.yml
             AuthService.Api/k8s/k8s-service.yml
           images: |
-            ${{ secrets.ACR_LOGIN_SERVER }}/k8s:latest
+            ${{ secrets.ACR_LOGIN_SERVER }}/auth:latest
           # imagepullsecrets: |
           #   acr-auth
 
