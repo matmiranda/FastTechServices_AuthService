@@ -5,11 +5,11 @@ namespace AuthService.Domain.Interfaces
 {
     public interface IUserRepository
     {
-        Task<Entities.User?> GetByEmailAsync(string email);
+        Task<User?> GetByEmailAsync(string email);
 
-        Task AddUserAsync(Entities.User user);
+        Task AddUserAsync(User user);
 
-        Task<bool> DeleteUserAsync(Guid id);
-        Task<User?> GetByIdAsync(Guid id);
+        Task<bool> DeleteUserAsync(ulong id);
+        Task<User?> GetByIdAsync(ulong id);
     }
 }

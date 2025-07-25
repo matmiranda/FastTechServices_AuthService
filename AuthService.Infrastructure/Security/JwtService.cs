@@ -1,8 +1,8 @@
-﻿using AuthService.Domain.Interfaces;
+﻿using AuthService.Domain.Entities;
+using AuthService.Domain.Interfaces;
 using AuthService.Domain.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -16,18 +16,23 @@ public class JwtService : IJwtService
         _settings = options.Value;
     }
 
-    public string GenerateToken(Guid userId, string email, string role)
+    public string GenerateToken(ulong userId, string email, UserRole role, string? position = null)
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.SecretKey));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var claims = new[]
+        var claims = new List<Claim>
+    {
+        new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
+        new Claim(JwtRegisteredClaimNames.Email, email),
+        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+        new Claim(ClaimTypes.Role, role.ToString())
+    };
+
+        if (!string.IsNullOrWhiteSpace(position))
         {
-            new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, email),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(ClaimTypes.Role, role)
-        };
+            claims.Add(new Claim("position", position));
+        }
 
         var token = new JwtSecurityToken(
             issuer: _settings.Issuer,

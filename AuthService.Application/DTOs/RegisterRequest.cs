@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AuthService.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
-using Swashbuckle.AspNetCore.Annotations;
 
 
 namespace AuthService.Application.DTOs
@@ -26,8 +21,7 @@ namespace AuthService.Application.DTOs
         public string Password { get; set; } = null!;
 
         [Required(ErrorMessage = "O campo Perfil é obrigatório.")]
-        [RegularExpression(@"^(CLIENTE|ATENDENTE|GERENTE|COZINHEIRO)$", ErrorMessage = "Perfil inválido.")]
-        public string Role { get; set; } = null!;
+        public UserRole Role { get; set; }
 
         [Required(ErrorMessage = "O campo Cargo é obrigatório.")]
         public string Position { get; set; } = null!;
