@@ -11,8 +11,6 @@ namespace AuthService.Api.Controllers;
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
-    private readonly IUserRepository _userRepository;
-    private readonly IJwtService _jwtService;
     private readonly IAuthService _authService;
 
     public AuthController(
@@ -20,8 +18,6 @@ public class AuthController : ControllerBase
         IJwtService jwtService,
         IAuthService authService)
     {
-        _userRepository = userRepository;
-        _jwtService = jwtService;
         _authService = authService;
     }
 
