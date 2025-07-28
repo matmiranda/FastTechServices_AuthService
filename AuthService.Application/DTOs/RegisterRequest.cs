@@ -22,8 +22,5 @@ namespace AuthService.Application.DTOs
 
         [Required(ErrorMessage = "O campo Perfil é obrigatório.")]
         public UserRole Role { get; set; }
-
-        [Required(ErrorMessage = "O campo Cargo é obrigatório.")]
-        public string Position { get; set; } = null!;
     }
 }

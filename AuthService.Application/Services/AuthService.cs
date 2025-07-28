@@ -135,7 +135,7 @@ namespace AuthService.Application.Services
                         user.Id,
                         user.Name,
                         user.Email,
-                        user.Role_Id
+                        roleId = user.Role_Id
                     }
                 });
             }
