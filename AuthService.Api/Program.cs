@@ -111,7 +111,7 @@ app.MapHealthChecks("/auth/health");
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// Adicionar middleware do Prometheus com endpoint customizado
+// Adicionar middleware do Prometheus com endpoint customizado teste
 app.UseMetricServer("/auth/metrics");
 app.UseHttpMetrics();
 
